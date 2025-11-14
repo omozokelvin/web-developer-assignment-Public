@@ -1,10 +1,9 @@
-// 'use client';
-
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import TanstackQueryProvider from '@/lib/providers/TanstackQueryProvider';
 import ToastContainerProvider from '@/lib/providers/ToastContainerProvider';
 import './globals.css';
+import { Suspense } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,7 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main>
-          <TanstackQueryProvider>{children}</TanstackQueryProvider>
+          <TanstackQueryProvider>
+            <Suspense>{children} </Suspense>
+          </TanstackQueryProvider>
 
           <ToastContainerProvider />
         </main>
