@@ -29,6 +29,33 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Running Tests
+
+- **Run tests:** `npm run test` (also works with `yarn test`, `pnpm test`, or `bun test`).
+- **Watch mode:** `npm run test:watch` to run tests in watch mode.
+- **Interactive UI:** `npm run test:ui` to open Vitest's UI for interactive test runs.
+- **Test runner:** This project uses **Vitest**; test files live alongside components (look for `*.test.tsx` / `*.test.ts`).
+
+To run tests locally:
+
+```bash
+npm install
+npm run test
+```
+
+To open the Vitest UI:
+
+```bash
+npm run test:ui
+# then open the URL Vitest prints to your browser
+```
+
+## Preview / Testing URL
+
+A deployed preview of this frontend (used for testing) is available at:
+
+https://lema-frontend-pi.vercel.app
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

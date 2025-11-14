@@ -58,7 +58,7 @@ export default function UsersPostPage() {
         <PageLoading />
       ) : (
         <div className="min-h-screen bg-gray-50 p-8">
-          <div className="max-w-4xl mx-auto p-6 rounded-xl">
+          <div className="max-w-4xl mx-auto md:p-6 p-2  rounded-xl">
             <p className="text-sm text-mutedForeground mb-2">
               Breadcrumb Item &gt; {selectedUser?.name}
             </p>
