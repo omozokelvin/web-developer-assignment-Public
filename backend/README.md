@@ -43,6 +43,22 @@ For development mode without hot reloading (required by nodemon):
 npm run dev:once
 ```
 
+## Testing
+
+To run the automated tests for this project:
+
+```bash
+npm run test
+```
+
+The test files are located in the `test/` directory (if present).
+
+## API Documentation
+
+- **Development Server:** `http://localhost:3001`
+- **Testing/Production Server:** `https://lema-backend-production-ac3a.up.railway.app/`
+- **Swagger UI:** Access the API documentation at `/api-docs` on either server (e.g., `http://localhost:3001/api-docs`).
+
 ## Project Structure
 
 ```
@@ -50,6 +66,7 @@ backend/
 ├── src/           # TypeScript source files
 ├── dist/          # Compiled JavaScript files (generated after build)
 ├── config/        # Configuration files
+├── test/          # Test files
 └── ...
 ```
 

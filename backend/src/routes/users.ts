@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { getUsersCount, getUsersWithAddressLeftJoin } from '../db/users/users';
+import { HttpStatus } from '../lib/types';
 
 const router = Router();
 
@@ -80,11 +81,22 @@ const router = Router();
  *        description: Invalid page number or page size.
  */
 router.get('/', async (req: Request, res: Response) => {
-  const pageNumber = Number(req.query.pageNumber) || 1;
-  const pageSize = Number(req.query.pageSize) || 4;
+  const pageNumberQuery = req.query.pageNumber;
+  const pageSizeQuery = req.query.pageSize;
 
-  if (pageNumber < 1 || pageSize < 1) {
-    res.status(400).send({ message: 'Invalid page number or page size' });
+  const pageNumber =
+    pageNumberQuery !== undefined ? Number(pageNumberQuery) : 1;
+  const pageSize = pageSizeQuery !== undefined ? Number(pageSizeQuery) : 4;
+
+  if (
+    !Number.isInteger(pageNumber) ||
+    pageNumber < 1 ||
+    !Number.isInteger(pageSize) ||
+    pageSize < 1
+  ) {
+    res
+      .status(HttpStatus.BAD_REQUEST)
+      .send({ message: 'Invalid page number or page size' });
     return;
   }
 

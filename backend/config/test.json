@@ -1,0 +1,5 @@
+{
+  "dbPath": ":memory:",
+  "port": 3001,
+  "jwtSecret": "test-secret"
+}
