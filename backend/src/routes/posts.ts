@@ -19,11 +19,11 @@ const router = Router();
  *           schema:
  *             type: object
  *             required:
- *               - user_id
+ *               - userId
  *               - title
  *               - body
  *             properties:
- *               user_id:
+ *               userId:
  *                 type: string
  *                 description: The ID of the user creating the post.
  *               title:
@@ -40,22 +40,22 @@ const router = Router();
  *             schema:
  *               $ref: '#/components/schemas/Post'
  *       400:
- *         description: Missing required fields (user_id, title, or body).
+ *         description: Missing required fields (userId, title, or body).
  *       500:
  *         description: An error occurred while creating the post.
  */
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const { user_id, title, body } = req.body;
+    const { userId, title, body } = req.body;
 
-    if (!user_id || !title || !body) {
+    if (!userId || !title || !body) {
       throw new HttpError(
         HttpStatus.BAD_REQUEST,
-        'user_id, title, and body are required'
+        'userId, title, and body are required'
       );
     }
 
-    const newPost = await createPost({ user_id, title, body });
+    const newPost = await createPost({ user_id: userId, title, body });
 
     res.status(HttpStatus.CREATED).send(newPost);
   } catch (error) {
