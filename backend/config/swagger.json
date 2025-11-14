@@ -1,0 +1,50 @@
+{
+  "swaggerDefinition": {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "LEMA Users and Posts API",
+      "version": "1.0.0",
+      "description": "API for managing users and posts"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3001"
+      }
+    ],
+    "components": {
+      "schemas": {
+        "Post": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The post ID.",
+              "example": "d3a4ec91a50447ebb64e395e124caf40"
+            },
+            "user_id": {
+              "type": "string",
+              "description": "The ID of the user who created the post.",
+              "example": "d3a4ec91a50447ebb64e395e124caf40"
+            },
+            "title": {
+              "type": "string",
+              "description": "The title of the post.",
+              "example": "My first post"
+            },
+            "body": {
+              "type": "string",
+              "description": "The body of the post.",
+              "example": "This is the body of my first post."
+            },
+            "created_at": {
+              "type": "string",
+              "description": "The date the post was created.",
+              "example": "2024-01-24T12:45:32+02:00"
+            }
+          }
+        }
+      }
+    }
+  },
+  "apis": ["./src/routes/*.ts"]
+}

@@ -3,8 +3,9 @@ import { connection } from "../connection";
 import {
   selectCountOfUsersTemplate,
   selectUsersTemplate,
+  selectUsersWithAddressLeftJoinTemplate,
 } from "./query-templates";
-import { User } from "./types";
+import { User, UserWithAddress } from "./types";
 
 export const getUsersCount = (): Promise<number> =>
   new Promise((resolve, reject) => {
@@ -35,3 +36,21 @@ export const getUsers = (
       }
     );
   });
+
+  export const getUsersWithAddressLeftJoin = (
+  pageNumber: number,
+  pageSize: number
+): Promise<UserWithAddress[]> =>
+  new Promise((resolve, reject) => {
+    connection.all<UserWithAddress>(
+      selectUsersWithAddressLeftJoinTemplate,
+      [pageNumber * pageSize, pageSize],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(results);
+      }
+    );
+  });
+
