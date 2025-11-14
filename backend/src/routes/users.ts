@@ -1,10 +1,5 @@
 import { Router, Request, Response } from 'express';
-
-import {
-  getUsers,
-  getUsersCount,
-  getUsersWithAddressLeftJoin,
-} from '../db/users/users';
+import { getUsersCount, getUsersWithAddressLeftJoin } from '../db/users/users';
 
 const router = Router();
 
@@ -85,9 +80,10 @@ const router = Router();
  *        description: Invalid page number or page size.
  */
 router.get('/', async (req: Request, res: Response) => {
-  const pageNumber = Number(req.query.pageNumber) || 0;
+  const pageNumber = Number(req.query.pageNumber) || 1;
   const pageSize = Number(req.query.pageSize) || 4;
-  if (pageNumber < 0 || pageSize < 1) {
+
+  if (pageNumber < 1 || pageSize < 1) {
     res.status(400).send({ message: 'Invalid page number or page size' });
     return;
   }

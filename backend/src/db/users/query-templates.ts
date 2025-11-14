@@ -10,7 +10,6 @@ SELECT COUNT(*) as count
 FROM users
 `;
 
-
 export const selectUsersWithAddressLeftJoinTemplate = `
 SELECT
     u.*,
