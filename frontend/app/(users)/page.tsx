@@ -2,13 +2,13 @@
 
 import Table from '@/lib/components/Table';
 import { routes } from '@/lib/constants/routes';
-import { formatAddress } from '@/lib/constants/utils';
 import { useGetUsers, useGetUsersCount } from '@/app/(users)/_lib/userQueries';
 import { useUserStore } from '@/app/(users)/_lib/userStore';
 import { ExtendedColumnDef } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { User } from '@/app/(users)/_lib/userTypes';
+import { formatAddress } from '@/app/(users)/_lib/userUtils';
 
 const ADDRESS_COLUMN_WIDTH = 'w-[392px]';
 const pageSize = 4;

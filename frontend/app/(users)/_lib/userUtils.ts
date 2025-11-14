@@ -1,7 +1,6 @@
-import { Address } from '@/lib/types';
+import { Address } from '@/app/(users)/_lib/userTypes';
 
 export const formatAddress = (address: Address) => {
   if (!address) return 'No Address Data';
-  // Format: "street, state, city, zipcode"
   return `${address.street}, ${address.state}, ${address.city}, ${address.zipcode}`;
 };
