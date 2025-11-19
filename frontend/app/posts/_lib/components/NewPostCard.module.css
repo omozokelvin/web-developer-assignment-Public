@@ -1,5 +1,5 @@
 .border-dashed-rounded {
-  border-radius: 0.75rem;
+  border-radius: 0.875rem;
   border: 1px solid transparent;
   padding: 1px;
   background-image: repeating-linear-gradient(
@@ -7,31 +7,31 @@
       #e2e8f0 0,
       #e2e8f0 8px,
       transparent 8px,
-      transparent 12px
+      transparent 16px
     ),
     repeating-linear-gradient(
       to bottom,
       #e2e8f0 0,
       #e2e8f0 8px,
       transparent 8px,
-      transparent 12px
+      transparent 16px
     ),
     repeating-linear-gradient(
       to left,
       #e2e8f0 0,
       #e2e8f0 8px,
       transparent 8px,
-      transparent 12px
+      transparent 16px
     ),
     repeating-linear-gradient(
       to top,
       #e2e8f0 0,
       #e2e8f0 8px,
       transparent 8px,
-      transparent 12px
+      transparent 16px
     );
   background-position: top, right, bottom, left;
   background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
   background-repeat: no-repeat;
-  background-clip: padding-box;
+  background-clip: border-box;
 }
