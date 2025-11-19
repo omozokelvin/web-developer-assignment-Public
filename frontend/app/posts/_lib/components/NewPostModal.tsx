@@ -14,12 +14,12 @@ const validationSchema = yup.object({
     .string()
     .trim()
     .required('Title is required')
-    .max(20, 'Title cannot exceed 20 characters'),
+    .max(50, 'Title cannot exceed 50 characters'),
   body: yup
     .string()
     .trim()
     .required('Body is required')
-    .max(50, 'Body cannot exceed 50 characters'),
+    .max(1000, 'Body cannot exceed 1000 characters'),
 });
 
 export default function NewPostModal({ isOpen, onClose, userId }: Props) {
