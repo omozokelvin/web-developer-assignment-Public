@@ -13,6 +13,7 @@ export default function Loading({ style }: { style?: CSSProperties }) {
         color: (fullConfig as any)?.theme?.colors?.loading ?? undefined,
         ...style,
       }}
+      data-testid="loading-spinner"
     >
       <div></div>
       <div></div>

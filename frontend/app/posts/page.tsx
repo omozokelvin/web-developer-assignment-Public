@@ -10,7 +10,7 @@ import { useGetUserPosts } from '@/app/posts/_lib/postQueries';
 import NewPostModal from '@/app/posts/_lib/components/NewPostModal';
 import DeleteModal from '@/lib/components/DeleteModal';
 import { useDeletePost } from '@/app/posts/_lib/postMutations';
-import Breadcrumb from '@/lib/components/Breadcrumb';
+import Breadcrumb from '@/lib/components/Breadcrumb/Breadcrumb';
 import { useGetUser } from '@/app/(users)/_lib/userQueries';
 
 export default function UsersPostPage() {

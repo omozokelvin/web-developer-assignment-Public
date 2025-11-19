@@ -31,7 +31,7 @@
     "**/*.mts",
     "vitest.config.mts",
     "vite-env.d.ts"
-  ],
+, "lib/components/Loading/Loading.test.tsx"  ],
   "exclude": ["node_modules"],
   "types": ["vitest/globals"]
 }
