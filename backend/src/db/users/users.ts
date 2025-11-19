@@ -4,7 +4,23 @@ import {
   selectCountOfUsersTemplate,
   selectUsersTemplate,
   selectUsersWithAddressLeftJoinTemplate,
+  selectUserWithAddressByIdTemplate,
 } from './query-templates';
+export const getUserWithAddressById = (
+  id: string
+): Promise<UserWithAddress | undefined> =>
+  new Promise((resolve, reject) => {
+    connection.get<UserWithAddress>(
+      selectUserWithAddressByIdTemplate,
+      [id],
+      (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(result);
+      }
+    );
+  });
 import { User, UserWithAddress } from './types';
 
 export const getUsersCount = (): Promise<number> =>

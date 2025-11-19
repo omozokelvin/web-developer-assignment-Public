@@ -21,3 +21,10 @@ export const useGetUsersCount = () => {
       httpService.get<HttpErrorResponse, { count: number }>('/users/count'),
   });
 };
+
+export const useGetUser = (id: string) => {
+  return useQuery({
+    queryKey: queryKeys.user(id),
+    queryFn: () => httpService.get<HttpErrorResponse, User>(`/users/${id}`),
+  });
+};

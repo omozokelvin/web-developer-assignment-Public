@@ -4,7 +4,6 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 
 import PageLoading from '@/lib/components/PageLoading';
-import { useUserStore } from '@/app/(users)/_lib/userStore';
 import PostCard from '@/app/posts/_lib/components/PostCard';
 import NewPostCard from '@/app/posts/_lib/components/NewPostCard';
 import { useGetUserPosts } from '@/app/posts/_lib/postQueries';
@@ -12,6 +11,7 @@ import NewPostModal from '@/app/posts/_lib/components/NewPostModal';
 import DeleteModal from '@/lib/components/DeleteModal';
 import { useDeletePost } from '@/app/posts/_lib/postMutations';
 import Breadcrumb from '@/lib/components/Breadcrumb';
+import { useGetUser } from '@/app/(users)/_lib/userQueries';
 
 export default function UsersPostPage() {
   const router = useRouter();
@@ -23,7 +23,10 @@ export default function UsersPostPage() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectPostId, setSelectedPostId] = useState('');
 
-  const { data: posts = [], isLoading } = useGetUserPosts(userId!);
+  const { data: selectedUser, isLoading: isUserLoading } = useGetUser(userId!);
+  const { data: posts = [], isLoading: isPostLoading } = useGetUserPosts(
+    userId!
+  );
   const { mutate: deletePost, isPending: deletingPost } = useDeletePost(
     userId!
   );
@@ -32,7 +35,7 @@ export default function UsersPostPage() {
     return [...posts].reverse();
   }, [posts]);
 
-  const { selectedUser } = useUserStore();
+  const isLoading = isUserLoading || isPostLoading;
 
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
@@ -66,12 +69,14 @@ export default function UsersPostPage() {
           <div className="max-w-[571px] lg:max-w-[856px] mx-auto p-2 rounded-xl">
             <Breadcrumb
               items={[
-                { title: 'Breadcrumb item' },
                 {
-                  title: selectedUser?.name || '',
+                  title: 'Users',
                   onClick: () => {
                     router.push(routes.home);
                   },
+                },
+                {
+                  title: selectedUser?.name || '',
                 },
               ]}
             />

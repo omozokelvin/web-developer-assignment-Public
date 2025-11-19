@@ -3,10 +3,9 @@
 import Table from '@/lib/components/Table';
 import { routes } from '@/lib/constants/routes';
 import { useGetUsers, useGetUsersCount } from '@/app/(users)/_lib/userQueries';
-import { useUserStore } from '@/app/(users)/_lib/userStore';
 import { ExtendedColumnDef } from '@/lib/types';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { User } from '@/app/(users)/_lib/userTypes';
 
 const FULL_NAME_COLUMN_WIDTH = `w-[179px]`;
@@ -41,10 +40,8 @@ const userColumns: ExtendedColumnDef<User>[] = [
 export default function UsersPage() {
   const [pageNumber, setPageNumber] = useState(1);
   const router = useRouter();
-  const { selectSelectedUser: setUser } = useUserStore();
 
   const navigateToPosts = (user: User) => {
-    setUser(user);
     router.push(routes.usersPosts(user.id));
   };
 
@@ -62,10 +59,6 @@ export default function UsersPage() {
   const totalPages = Math.ceil(totalRecords / pageSize);
 
   const isLoading = isUsersLoading || isUsersCountLoading;
-
-  useEffect(() => {
-    setUser(null);
-  }, []);
 
   return (
     <Table<User>

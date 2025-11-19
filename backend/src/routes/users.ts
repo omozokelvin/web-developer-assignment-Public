@@ -1,6 +1,13 @@
+// Utility to transform user DB row to API shape
+
 import { Router, Request, Response } from 'express';
-import { getUsersCount, getUsersWithAddressLeftJoin } from '../db/users/users';
+import {
+  getUsersCount,
+  getUsersWithAddressLeftJoin,
+  getUserWithAddressById,
+} from '../db/users/users';
 import { HttpStatus } from '../lib/types';
+import { transformUserWithAddress } from '../lib/utils';
 
 const router = Router();
 
@@ -16,7 +23,7 @@ const router = Router();
  *         name: pageNumber
  *         schema:
  *           type: integer
- *           default: 0
+ *           default: 1
  *         description: The page number to retrieve.
  *       - in: query
  *         name: pageSize
@@ -105,27 +112,7 @@ router.get('/', async (req: Request, res: Response) => {
   }
 
   const users = (await getUsersWithAddressLeftJoin(pageNumber, pageSize)).map(
-    (user) => {
-      const {
-        address_id,
-        address_street,
-        address_city,
-        address_state,
-        address_zipcode,
-        ...rest
-      } = user;
-      return {
-        ...rest,
-        address: {
-          id: address_id,
-          street: address_street,
-          city: address_city,
-          state: address_state,
-          zipcode: address_zipcode,
-          friendly_address: `${address_street}, ${address_city}, ${address_state}, ${address_zipcode}`,
-        },
-      };
-    }
+    transformUserWithAddress
   );
 
   res.send(users);
@@ -154,6 +141,73 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/count', async (req: Request, res: Response) => {
   const count = await getUsersCount();
   res.send({ count });
+});
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     tags: [Users]
+ *     summary: Get a user by ID
+ *     description: Retrieve a single user by ID, including address info.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID.
+ *     responses:
+ *       200:
+ *         description: A user object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 username:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 phone:
+ *                   type: string
+ *                 address:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     street:
+ *                       type: string
+ *                     city:
+ *                       type: string
+ *                     state:
+ *                       type: string
+ *                     zipcode:
+ *                       type: string
+ *                     friendly_address:
+ *                       type: string
+ *       404:
+ *         description: User not found.
+ */
+router.get('/:id', (req: Request, res: Response) => {
+  const { id } = req.params;
+  getUserWithAddressById(id)
+    .then((user) => {
+      if (!user) {
+        res.status(HttpStatus.NOT_FOUND).send({ message: 'User not found' });
+        return;
+      }
+      res.send(transformUserWithAddress(user));
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: 'Internal server error', error: err?.message || err });
+    });
 });
 
 export default router;
