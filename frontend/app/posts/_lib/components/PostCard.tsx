@@ -17,7 +17,7 @@ export default function PostCard({ id, title, body, onDelete }: Props) {
         {title}
       </h3>
 
-      <p className="text-sm text-foreground line-clamp-10 break-words whitespace-normal">
+      <p className="text-sm text-foreground line-clamp-[10] break-words text-ellipsis">
         {body}
       </p>
     </div>
