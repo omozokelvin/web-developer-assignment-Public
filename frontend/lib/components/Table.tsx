@@ -40,7 +40,7 @@ export default function Table<TData>({
 
       {/* Table Structure */}
       <div className="overflow-x-auto relative border border-input rounded-lg">
-        <table className="min-w-full divide-y divide-gray-200">
+        <table className="min-w-full divide-y divide-border">
           {/* Table Header */}
           <thead>
             <tr className="text-left text-sm font-medium text-mutedForeground tracking-wider border-b border-input">
@@ -59,9 +59,9 @@ export default function Table<TData>({
           </thead>
 
           {/* Table Body */}
-          <tbody className="bg-white divide-y divide-gray-100">
+          <tbody className="bg-white divide-y divide-border">
             {isLoading ? (
-              <tr>
+              <tr className="border-b border-input">
                 <td colSpan={columns.length} className="py-16 justify-center">
                   <div className="flex justify-center">
                     <Loading />
@@ -70,7 +70,7 @@ export default function Table<TData>({
               </tr>
             ) : data.length === 0 && !isError ? (
               // Empty State
-              <tr>
+              <tr className="border-b border-input">
                 <td
                   colSpan={columns.length}
                   className="py-8 text-center text-gray-500"
@@ -79,7 +79,7 @@ export default function Table<TData>({
                 </td>
               </tr>
             ) : isError ? (
-              <tr>
+              <tr className="border-b border-input">
                 <td colSpan={columns.length} className="p-4">
                   <div className="text-center p-12 text-red-600 bg-red-50 rounded-xl shadow-inner max-w-4xl mx-auto">
                     <Frown className="w-8 h-8 mx-auto mb-3" />
