@@ -12,4 +12,7 @@ export interface UserWithAddress extends User {
   address_city: string;
   address_state: string;
   address_zipcode: string;
+  friendly_address: string;
 }
+
+export interface Address extends Omit<UserWithAddress, keyof User> {}

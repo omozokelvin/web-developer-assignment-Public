@@ -18,7 +18,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-xl shadow-2xl p-8 max-w-lg w-full transform transition-all"
+        className="relative bg-white rounded-xl shadow-2xl p-6 max-w-[679px] w-full transform transition-all"
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
         role="dialog"
         aria-modal="true"

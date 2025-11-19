@@ -1,3 +1,5 @@
+import { Address } from '../db/users/types';
+
 export class HttpError extends Error {
   public status: number;
 
@@ -7,5 +9,3 @@ export class HttpError extends Error {
     Object.setPrototypeOf(this, HttpError.prototype);
   }
 }
-
-

@@ -10,8 +10,16 @@ interface Props extends Omit<ModalProps, 'children'> {
 }
 
 const validationSchema = yup.object({
-  title: yup.string().trim().required('Title is required'),
-  body: yup.string().trim().required('Body is required'),
+  title: yup
+    .string()
+    .trim()
+    .required('Title is required')
+    .max(50, 'Title cannot exceed 50 characters'),
+  body: yup
+    .string()
+    .trim()
+    .required('Body is required')
+    .max(500, 'Body cannot exceed 500 characters'),
 });
 
 export default function NewPostModal({ isOpen, onClose, userId }: Props) {
@@ -49,7 +57,7 @@ export default function NewPostModal({ isOpen, onClose, userId }: Props) {
     <Modal isOpen={isOpen} onClose={resetAndClose}>
       <h2
         id="modal-title"
-        className="font-medium text-4xl text-foreground mb-6 border-b pb-2"
+        className="font-medium text-4xl text-foreground mb-4 border-b pb-2"
       >
         New Post
       </h2>
@@ -76,7 +84,7 @@ export default function NewPostModal({ isOpen, onClose, userId }: Props) {
             disabled={isSubmitting}
             error={formik.errors.body}
             touched={formik.touched.body}
-            rows={4}
+            rows={5}
           />
 
           <div className="flex justify-end space-x-3 pt-4 border-t">

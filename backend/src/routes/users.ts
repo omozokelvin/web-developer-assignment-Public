@@ -77,6 +77,10 @@ const router = Router();
  *                         type: string
  *                         description: The ZIP code.
  *                         example: 20011
+ *                       friendly_address:
+ *                         type: string
+ *                         description: The friendly address.
+ *                         example: 4709 Blagden Terrace Northwest, Washington, DC, 20011
  *       400:
  *        description: Invalid page number or page size.
  */
@@ -118,6 +122,7 @@ router.get('/', async (req: Request, res: Response) => {
           city: address_city,
           state: address_state,
           zipcode: address_zipcode,
+          friendly_address: `${address_street}, ${address_city}, ${address_state}, ${address_zipcode}`,
         },
       };
     }

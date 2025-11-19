@@ -1,7 +1,7 @@
 'use client';
 import { routes } from '@/lib/constants/routes'; // Assuming this path is correct
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 
 import PageLoading from '@/lib/components/PageLoading';
 import { useUserStore } from '@/app/(users)/_lib/userStore';
@@ -11,6 +11,7 @@ import { useGetUserPosts } from '@/app/posts/_lib/postQueries';
 import NewPostModal from '@/app/posts/_lib/components/NewPostModal';
 import DeleteModal from '@/lib/components/DeleteModal';
 import { useDeletePost } from '@/app/posts/_lib/postMutations';
+import Breadcrumb from '@/lib/components/Breadcrumb';
 
 export default function UsersPostPage() {
   const router = useRouter();
@@ -26,6 +27,10 @@ export default function UsersPostPage() {
   const { mutate: deletePost, isPending: deletingPost } = useDeletePost(
     userId!
   );
+
+  const reversedPost = useMemo(() => {
+    return [...posts].reverse();
+  }, [posts]);
 
   const { selectedUser } = useUserStore();
 
@@ -58,24 +63,32 @@ export default function UsersPostPage() {
         <PageLoading />
       ) : (
         <div className="min-h-screen bg-gray-50 p-8">
-          <div className="max-w-4xl mx-auto md:p-6 p-2  rounded-xl">
-            <p className="text-sm text-mutedForeground mb-2">
-              Breadcrumb Item &gt; {selectedUser?.name}
-            </p>
+          <div className="max-w-[571px] lg:max-w-[856px] mx-auto p-2 rounded-xl">
+            <Breadcrumb
+              items={[
+                { title: 'Breadcrumb item' },
+                {
+                  title: selectedUser?.name || '',
+                  onClick: () => {
+                    router.push(routes.home);
+                  },
+                },
+              ]}
+            />
 
-            <h1 className="text-4xl font-medium mb-2 text-foreground">
+            <h1 className="text-4xl font-medium mb-4 text-foreground">
               {selectedUser?.name}
             </h1>
 
-            <p className="text-md text-mutedForeground mb-6">
+            <p className="text-md text-mutedForeground mb-12">
               {selectedUser?.email}
               <span className="text-foreground"> • {posts.length} Posts</span>
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2  md:grid-cols- gap-6 sm:grid-cols-gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4">
               <NewPostCard onClick={addNewPost} />
 
-              {posts.map((post) => (
+              {reversedPost.map((post) => (
                 <PostCard
                   key={post.id}
                   id={post.id}

@@ -8,9 +8,10 @@ import { ExtendedColumnDef } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { User } from '@/app/(users)/_lib/userTypes';
-import { formatAddress } from '@/app/(users)/_lib/userUtils';
 
-const ADDRESS_COLUMN_WIDTH = 'w-[392px]';
+const FULL_NAME_COLUMN_WIDTH = `w-[179px]`;
+const EMAIL_COLUMN_WIDTH = `w-[213px] md:w-[226px]`;
+const ADDRESS_COLUMN_WIDTH = `w-[213px] md:w-[312px]`;
 const pageSize = 4;
 
 const userColumns: ExtendedColumnDef<User>[] = [
@@ -18,23 +19,20 @@ const userColumns: ExtendedColumnDef<User>[] = [
     header: 'Full name',
     key: 'name',
     cell: (user) => user.name,
+    className: FULL_NAME_COLUMN_WIDTH,
+    headerClassName: FULL_NAME_COLUMN_WIDTH,
   },
   {
     header: 'Email address',
     key: 'email',
     cell: (user) => user.email,
+    className: EMAIL_COLUMN_WIDTH,
+    headerClassName: EMAIL_COLUMN_WIDTH,
   },
   {
     header: 'Address',
     key: 'address',
-    cell: (user) => (
-      <div
-        className="truncate w-full block"
-        title={formatAddress(user.address)}
-      >
-        {formatAddress(user.address)}
-      </div>
-    ),
+    cell: (user) => user.address.friendly_address,
     className: ADDRESS_COLUMN_WIDTH,
     headerClassName: ADDRESS_COLUMN_WIDTH,
   },

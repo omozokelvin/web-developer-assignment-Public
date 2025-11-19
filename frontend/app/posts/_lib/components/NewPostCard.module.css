@@ -1,0 +1,37 @@
+.border-dashed-rounded {
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  padding: 1px;
+  background-image: repeating-linear-gradient(
+      to right,
+      #e2e8f0 0,
+      #e2e8f0 8px,
+      transparent 8px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      #e2e8f0 0,
+      #e2e8f0 8px,
+      transparent 8px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      to left,
+      #e2e8f0 0,
+      #e2e8f0 8px,
+      transparent 8px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      to top,
+      #e2e8f0 0,
+      #e2e8f0 8px,
+      transparent 8px,
+      transparent 12px
+    );
+  background-position: top, right, bottom, left;
+  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+  background-repeat: no-repeat;
+  background-clip: padding-box;
+}

@@ -42,9 +42,9 @@ function TextField({
   disabled,
   rows,
 }: Props) {
-  const inputClasses = `w-full px-3 py-2 mb-1 border border-input rounded-lg placeholder-mutedForeground focus:ring-primary focus:border-primary transition duration-150 ${
+  const inputClasses = `w-full px-3 py-2 border border-input rounded-lg placeholder-mutedForeground focus:ring-primary focus:border-primary transition duration-150 ${
     touched && error ? 'border-red-500' : 'border-input'
-  }`;
+  } ${type === 'textarea' ? 'mb-0' : 'mb-1'}`;
 
   const errorClasses = 'text-red-500 text-sm';
 

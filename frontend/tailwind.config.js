@@ -13,6 +13,11 @@ module.exports = {
         input: '#E2E8F0',
         primary: '#155DFC',
         accentForeground: '#0F172B',
+        border: '#E2E8F0',
+        loading: '#bdb1c5',
+        red: {
+          400: '#F9566A',
+        },
       },
     },
   },

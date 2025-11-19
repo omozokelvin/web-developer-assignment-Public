@@ -1,4 +1,5 @@
 import { Plus, PlusCircle } from 'lucide-react';
+import styles from './NewPostCard.module.css';
 
 interface Props {
   onClick: () => void;
@@ -7,7 +8,7 @@ interface Props {
 export default function NewPostCard({ onClick }: Props) {
   return (
     <button
-      className="flex flex-col items-center justify-center p-4 bg-white border border-dashed border-gray-300 rounded-xl h-64 text-foreground hover:text-foreground hover:border-gray-400 transition-colors duration-150"
+      className={`flex flex-col items-center justify-center bg-white h-[293px] text-foreground ${styles['border-dashed-rounded']}`}
       onClick={onClick}
     >
       <PlusCircle className="w-6 h-6 mb-2" />

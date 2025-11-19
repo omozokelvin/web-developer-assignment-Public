@@ -1,4 +1,4 @@
-import Loading from '@/lib/components/Loading';
+import Loading from '@/lib/components/Loading/Loading';
 
 export default function PageLoading() {
   return (

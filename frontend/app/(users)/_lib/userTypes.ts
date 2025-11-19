@@ -4,6 +4,7 @@ export interface Address {
   city: string;
   state: string;
   zipcode: string;
+  friendly_address: string;
 }
 
 export interface User {

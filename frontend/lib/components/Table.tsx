@@ -1,7 +1,7 @@
 import { Frown } from 'lucide-react';
 import { ExtendedColumnDef } from '@/lib/types';
 import Pagination from '@/lib/components/Pagination';
-import Loading from '@/lib/components/Loading';
+import Loading from '@/lib/components/Loading/Loading';
 
 interface TableProps<TData> {
   title?: string;
@@ -39,11 +39,11 @@ export default function Table<TData>({
       )}
 
       {/* Table Structure */}
-      <div className="overflow-x-auto relative">
+      <div className="overflow-x-auto relative border border-input rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
           {/* Table Header */}
           <thead>
-            <tr className="text-left text-xs font-normal text-mutedForeground tracking-wider border-b border-gray-300">
+            <tr className="text-left text-sm font-medium text-mutedForeground tracking-wider border-b border-input">
               {columns.map((column, index) => (
                 <th
                   key={index}
@@ -62,7 +62,7 @@ export default function Table<TData>({
           <tbody className="bg-white divide-y divide-gray-100">
             {isLoading ? (
               <tr>
-                <td colSpan={columns.length} className="py-8 justify-center">
+                <td colSpan={columns.length} className="py-16 justify-center">
                   <div className="flex justify-center">
                     <Loading />
                   </div>
@@ -108,7 +108,7 @@ export default function Table<TData>({
                     <td
                       key={colIndex}
                       className={`
-                        py-4 pl-4 pr-3 first:pl-4 last:pr-4 text-sm text-foreground
+                        py-4 pl-4 pr-3 first:pl-4 last:pr-4 text-sm text-foreground truncate max-w-xs overflow-ellipsis whitespace-nowrap
                         ${column.className || ''}
                       `}
                     >

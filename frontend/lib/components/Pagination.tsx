@@ -15,56 +15,42 @@ export default function Pagination({
 
   const renderPageNumbers = () => {
     const pages: (number | '...')[] = [];
-    const pageRange = 1;
-    const pagesToShow = 2 * pageRange + 1;
-
-    const switchThreshold = 5 + pagesToShow;
-
-    if (totalPages <= switchThreshold) {
+    // Always show first 3 and last 3 pages if possible
+    // Show current page and its neighbors if not in first/last 3
+    if (totalPages <= 7) {
+      // Show all pages if 7 or fewer
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      pages.push(1);
+      // Always show 1, 2, 3
+      pages.push(1, 2, 3);
 
-      let start = Math.max(2, currentPage - pageRange);
-      let end = Math.min(totalPages - 1, currentPage + pageRange);
-
-      if (currentPage <= pageRange + 1) {
-        end = 1 + pagesToShow;
-      } else if (currentPage >= totalPages - pageRange) {
-        start = totalPages - pagesToShow;
-      }
-
-      if (start > 2) {
+      // If currentPage is in the first 4, just show up to 4, then ...
+      if (currentPage <= 4) {
+        if (currentPage === 4) pages.push(4);
+        pages.push('...');
+      } else if (currentPage >= totalPages - 3) {
+        // If currentPage is in the last 4, show ... before last 6
+        pages.push('...');
+      } else {
+        // Show ... currentPage-1, currentPage, currentPage+1 ...
+        pages.push('...');
+        pages.push(currentPage - 1, currentPage, currentPage + 1);
         pages.push('...');
       }
 
-      for (let i = start; i <= end; i++) {
-        if (i > 1 && i < totalPages) {
-          pages.push(i);
-        }
-      }
-
-      if (end < totalPages - 1) {
-        if (
-          pages[pages.length - 1] !== '...' &&
-          (pages[pages.length - 1] as number) < totalPages - 1
-        ) {
-          pages.push('...');
-        }
-      }
-
-      if (pages[pages.length - 1] !== totalPages) {
-        pages.push(totalPages);
-      }
+      // Always show last 3 pages
+      pages.push(totalPages - 2, totalPages - 1, totalPages);
     }
 
-    const uniquePages = pages.filter(
-      (value, index, self) =>
-        (value !== '...' || self[index - 1] !== '...') &&
-        value !== self[index - 1]
-    );
+    // Remove duplicates and handle consecutive ...
+    const uniquePages = pages.filter((value, index, self) => {
+      if (value === '...' && self[index - 1] === '...') return false;
+      if (typeof value === 'number' && self.indexOf(value) !== index)
+        return false;
+      return true;
+    });
 
     return uniquePages.map((page, index) => {
       if (page === '...') {
