@@ -51,6 +51,12 @@ vi.mock('next/navigation', () => ({
     asPath: '/users',
     push: mockPush,
   })),
+  useSearchParams: vi.fn(() => ({
+    get: vi.fn((key: string) => {
+      if (key === 'pageNumber') return '1';
+      return null;
+    }),
+  })),
 }));
 
 vi.mock('@/app/(users)/_lib/userQueries', () => ({

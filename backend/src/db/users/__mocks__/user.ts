@@ -8,7 +8,7 @@ const mockUsersWithAddress = [
     address_id: 'addr-1',
     address_street: '123 Mock St',
     address_city: 'Mock City',
-    address_state: 'MC',
+    address_state: 'CA',
     address_zipcode: '10001',
   },
 ];

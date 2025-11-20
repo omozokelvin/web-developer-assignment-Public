@@ -20,7 +20,7 @@ describe('GET /users/:id', () => {
       address_id: 'addr-1',
       address_street: '123 Mock St',
       address_city: 'Mock City',
-      address_state: 'MC',
+      address_state: 'CA',
       address_zipcode: '10001',
     });
 
@@ -36,9 +36,9 @@ describe('GET /users/:id', () => {
         id: 'addr-1',
         street: '123 Mock St',
         city: 'Mock City',
-        state: 'MC',
+        state: 'CA',
         zipcode: '10001',
-        friendly_address: '123 Mock St, Mock City, MC, 10001',
+        friendly_address: '123 Mock St, Mock City, California, 10001',
       },
     });
     expect(getUserWithAddressById).toHaveBeenCalledWith('user-1');
@@ -63,9 +63,9 @@ const mockUsers = [
       id: 'addr-1',
       street: '123 Mock St',
       city: 'Mock City',
-      state: 'MC',
+      state: 'CA',
       zipcode: '10001',
-      friendly_address: '123 Mock St, Mock City, MC, 10001',
+      friendly_address: '123 Mock St, Mock City, California, 10001',
     },
   },
 ];
@@ -82,7 +82,7 @@ describe('GET /users', () => {
         address_id: 'addr-1',
         address_street: '123 Mock St',
         address_city: 'Mock City',
-        address_state: 'MC',
+        address_state: 'CA',
         address_zipcode: '10001',
       },
     ]);
