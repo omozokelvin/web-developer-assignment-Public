@@ -7,9 +7,14 @@ import { useQuery } from '@tanstack/react-query';
 export const useGetUserPosts = (userId: string) => {
   return useQuery({
     queryKey: queryKeys.usersPosts(userId),
-    queryFn: () =>
-      httpService.get<HttpErrorResponse, Post[]>('/posts', {
+    queryFn: () => {
+      if (!userId) {
+        return [];
+      }
+
+      return httpService.get<HttpErrorResponse, Post[]>('/posts', {
         params: { userId },
-      }),
+      });
+    },
   });
 };

@@ -1,6 +1,6 @@
 'use client';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import PageLoading from '@/lib/components/PageLoading';
 import PostCard from '@/app/posts/_lib/components/PostCard';
 import NewPostCard from '@/app/posts/_lib/components/NewPostCard';
@@ -10,6 +10,7 @@ import DeleteModal from '@/lib/components/DeleteModal';
 import { useDeletePost } from '@/app/posts/_lib/postMutations';
 import Breadcrumb from '@/lib/components/Breadcrumb/Breadcrumb';
 import { useGetUser } from '@/app/(users)/_lib/userQueries';
+import NotFound from '@/lib/components/NotFound';
 
 export default function UsersPostPage() {
   const router = useRouter();
@@ -52,15 +53,18 @@ export default function UsersPostPage() {
     setIsCreateModalOPen(true);
   };
 
-  useEffect(() => {
-    if (!userId) {
-      router.back();
-      return;
-    }
-  }, [userId]);
-
   if (isLoading) {
     return <PageLoading />;
+  }
+
+  if (!userId) {
+    return (
+      <NotFound
+        title="No User Selected"
+        subtitle="A valid user ID is required to view posts. Please select a user from
+            the users page."
+      />
+    );
   }
 
   return (

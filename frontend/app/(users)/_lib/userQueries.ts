@@ -25,6 +25,12 @@ export const useGetUsersCount = () => {
 export const useGetUser = (id: string) => {
   return useQuery({
     queryKey: queryKeys.user(id),
-    queryFn: () => httpService.get<HttpErrorResponse, User>(`/users/${id}`),
+    queryFn: () => {
+      if (!id) {
+        return null;
+      }
+
+      return httpService.get<HttpErrorResponse, User>(`/users/${id}`);
+    },
   });
 };
