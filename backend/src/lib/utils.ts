@@ -1,4 +1,5 @@
-import { Address, UserWithAddress } from '../db/users/types';
+import { UserWithAddress } from '../db/users/types';
+import { US_STATES } from './constants';
 
 export class HttpError extends Error {
   public status: number;
@@ -27,7 +28,7 @@ export const transformUserWithAddress = (user: UserWithAddress) => {
       city: address_city,
       state: address_state,
       zipcode: address_zipcode,
-      friendly_address: `${address_street}, ${address_city}, ${address_state}, ${address_zipcode}`,
+      friendly_address: `${address_street}, ${address_city}, ${US_STATES[address_state]}, ${address_zipcode}`,
     },
   };
 };

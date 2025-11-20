@@ -11,37 +11,38 @@ export default function Pagination({
   currentPage,
   onPageChange,
 }: Props) {
-  if (totalPages <= 1) return null;
+  // if (totalPages <= 1) return null;
 
   const renderPageNumbers = () => {
     const pages: (number | '...')[] = [];
-    // Always show first 3 and last 3 pages if possible
-    // Show current page and its neighbors if not in first/last 3
+
     if (totalPages <= 7) {
       // Show all pages if 7 or fewer
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      // Always show 1, 2, 3
-      pages.push(1, 2, 3);
+      // Always show first page
+      pages.push(1);
 
-      // If currentPage is in the first 4, just show up to 4, then ...
-      if (currentPage <= 4) {
-        if (currentPage === 4) pages.push(4);
+      // Determine the range of pages to show around current page
+      if (currentPage <= 3) {
+        // Near the beginning: show 1, 2, 3, 4 ... last
+        pages.push(2, 3, 4);
         pages.push('...');
-      } else if (currentPage >= totalPages - 3) {
-        // If currentPage is in the last 4, show ... before last 6
+      } else if (currentPage >= totalPages - 2) {
+        // Near the end: show 1 ... last-3, last-2, last-1, last
         pages.push('...');
+        pages.push(totalPages - 3, totalPages - 2, totalPages - 1);
       } else {
-        // Show ... currentPage-1, currentPage, currentPage+1 ...
+        // In the middle: show 1 ... current-1, current, current+1 ... last
         pages.push('...');
         pages.push(currentPage - 1, currentPage, currentPage + 1);
         pages.push('...');
       }
 
-      // Always show last 3 pages
-      pages.push(totalPages - 2, totalPages - 1, totalPages);
+      // Always show last page
+      pages.push(totalPages);
     }
 
     // Remove duplicates and handle consecutive ...

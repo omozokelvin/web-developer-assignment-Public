@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <main>
           <TanstackQueryProvider>
-            <Suspense>{children} </Suspense>
+            <Suspense>{children}</Suspense>
           </TanstackQueryProvider>
 
           <ToastContainerProvider />

@@ -122,13 +122,11 @@ export default function Table<TData>({
         </table>
       </div>
 
-      {!isLoading && totalPages > 0 && (
-        <Pagination
-          totalPages={totalPages}
-          currentPage={pageNumber}
-          onPageChange={setPageNumber}
-        />
-      )}
+      <Pagination
+        totalPages={totalPages}
+        currentPage={pageNumber}
+        onPageChange={setPageNumber}
+      />
     </div>
   );
 }
