@@ -6,6 +6,8 @@ import { useGetUsers, useGetUsersCount } from '@/app/(users)/_lib/userQueries';
 import { ExtendedColumnDef } from '@/lib/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { User } from '@/app/(users)/_lib/userTypes';
+import { useState } from 'react';
+import PageLoading from '@/lib/components/PageLoading';
 
 const FULL_NAME_COLUMN_WIDTH = `w-[179px]`;
 const EMAIL_COLUMN_WIDTH = `w-[213px] md:w-[226px]`;
@@ -43,10 +45,7 @@ export default function UsersPage() {
 
   const pageNumber = Number(searchParams.get('pageNumber')) || 1;
   const router = useRouter();
-
-  const navigateToPosts = (user: User) => {
-    router.push(routes.usersPosts(user.id));
-  };
+  const [pageLoading, setPageLoading] = useState(false);
 
   const { data: usersCount, isLoading: isUsersCountLoading } =
     useGetUsersCount();
@@ -63,13 +62,20 @@ export default function UsersPage() {
 
   const isLoading = isUsersLoading || isUsersCountLoading;
 
+  if (pageLoading) {
+    return <PageLoading />;
+  }
+
   return (
     <Table<User>
       title="Users"
       data={users}
       columns={userColumns}
       isLoading={isLoading}
-      onRowClick={navigateToPosts}
+      onRowClick={(user) => {
+        setPageLoading(true);
+        router.push(routes.usersPosts(user.id));
+      }}
       totalPages={totalPages}
       pageNumber={pageNumber}
       setPageNumber={(page: number) => {
