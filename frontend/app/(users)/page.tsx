@@ -5,7 +5,6 @@ import { routes } from '@/lib/constants/routes';
 import { useGetUsers, useGetUsersCount } from '@/app/(users)/_lib/userQueries';
 import { ExtendedColumnDef } from '@/lib/types';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
 import { User } from '@/app/(users)/_lib/userTypes';
 
 const FULL_NAME_COLUMN_WIDTH = `w-[179px]`;
